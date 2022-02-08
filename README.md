@@ -12,16 +12,19 @@ For every model update that is persisted through this service's `saveChangeSet()
 Consider the following
 
 ```js
+// Update existing deliverySettings
 const deliverySettings = DeliverySettingsProfile.findByPk(42, { include: 'deliveryFeesByDistance' });
 deliverySettings.deliveryRangeMiles = 100; // old value was 50
 deliverySettings.offerDeliveryTradeIn = 1; // old value was 0
-deliverySettings.deliveryFeesByDistance.forEach(fee => fee.feeCents *= 0.1); // Increase all fees by 10%
+deliverySettings.deliveryFeesByDistance.forEach(fee => fee.feeCents *= 0.1); // Increase all fees by 10
+
+
 
 await auditLogService
   .init()
   .withUser(user) // user is the logged-in user - assume ID of 13
   // Create (Supports only one row creation at a time)
-  .create('deliverySettings', {})
+  .create('deliverySettings', { deliverySettingsProfile: 42, distanceMiles = 200, offerDeliveryTradeIn: 1 })
   // Delete (Supports only one row deletion at a time)
   .delete(deliverySettings)
   // Update (Supports multi model changes)
