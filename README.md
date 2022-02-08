@@ -32,12 +32,12 @@ This will not only create/delete/update the appropriate `DeliverySettingsProfile
 
 ```
 +--+-----------------------+--------------------+----------+--------+--------+--------+--------+--------+----------------------------------+---------+-------------------+
-|id|tableName              |fieldName           |primaryKey|action|oldValue|newValue|oldLabel|newLabel|changesetUuidBin                  |updatedBy|updatedOn          |
+|id|tableName              |fieldName           |primaryKey|action  |oldValue|newValue|oldLabel|newLabel|changesetUuidBin                  |updatedBy|updatedOn          |
 +--+-----------------------+--------------------+----------+--------+--------+--------+--------+--------+----------------------------------+---------+-------------------+
-|1 |DeliverySettingsProfile|deliveryRangeMiles  |42        |CREATE      |50      |100     |NULL    |NULL    |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
-|2 |DeliverySettingsProfile|offerDeliveryTradeIn|42        |DELETE      |0       |1       |No      |Yes     |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
-|3 |DeliveryFeeByDistance  |feeCents            |1         |UPDATE      |10000   |11000   |NULL    |NULL    |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
-|4 |DeliveryFeeByDistance  |feeCents            |2         |UPDATE      |15000   |16500   |NULL    |NULL    |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
+|1 |DeliverySettingsProfile|deliveryRangeMiles  |42        |CREATE  |50      |100     |NULL    |NULL    |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
+|2 |DeliverySettingsProfile|offerDeliveryTradeIn|42        |DELETE  |0       |1       |No      |Yes     |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
+|3 |DeliveryFeeByDistance  |feeCents            |1         |UPDATE  |10000   |11000   |NULL    |NULL    |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
+|4 |DeliveryFeeByDistance  |feeCents            |2         |UPDATE  |15000   |16500   |NULL    |NULL    |0xB7C930EA7D4E11EC83670242AC130003|13       |2022-01-25 18:39:48|
 +--+-----------------------+--------------------+----------+--------+--------+--------+--------+--------+----------------------------------+---------+-------------------+
 ```
 
