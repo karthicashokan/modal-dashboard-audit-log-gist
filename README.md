@@ -13,7 +13,7 @@ Consider the following
 
 ```js
 // Update existing deliverySettings
-const deliverySettings = DeliverySettingsProfile.findByPk(42, { include: 'deliveryFeesByDistance' });
+const deliverySettings = DeliverySettingsProfile.findByPk(41, { include: 'deliveryFeesByDistance' });
 deliverySettings.deliveryRangeMiles = 100; // old value was 50
 deliverySettings.offerDeliveryTradeIn = 1; // old value was 0
 deliverySettings.deliveryFeesByDistance.forEach(fee => fee.feeCents *= 0.1); // Increase all fees by 10
@@ -26,7 +26,7 @@ await auditLogService
   // Update (Supports multi model changes)
   .update([deliverySettings, ...deliverySettings.deliveryFeesByDistance])
   // Create (Supports only one row creation at a time)
-  .create('deliverySettings', { deliverySettingsProfile: 42, distanceMiles = 200, offerDeliveryTradeIn: 1 })
+  .create('deliverySettings', { deliverySettingsProfile: 41, distanceMiles = 200, offerDeliveryTradeIn: 1 })
   // Delete (Supports only one row deletion at a time)
   .delete(deliverySettings)
 ```
