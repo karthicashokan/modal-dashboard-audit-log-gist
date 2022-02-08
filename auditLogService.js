@@ -80,6 +80,22 @@ class AuditLogService {
         return isSequelizeModel;
     }
 
+    /**
+     * Returns the label values
+     * @param model
+     */
+    static labelValues(model) {
+        // This assumes that DeliverySettingsProfile has implemented labelValue()
+        const labelValue = typeof model.labelValue === 'function'
+            ? model.labelValue.bind(model)
+            : () => null;
+        const values = {};
+        for (const [key, value] of Object.entries(model)) {
+            values[key] = labelValue(value, key);
+        }
+        return values;
+    }
+
     static verifyArguments(changeSet) {
         // 1. Make sure user is initialized
         if (!this.#user) {
@@ -119,7 +135,7 @@ class AuditLogService {
                     oldValue: null,
                     newValue: data,
                     oldLabel: null,
-                    newLabel: labelValue(data),
+                    newLabel: labelValues(row),
                     changedBy
                 });
             });
@@ -149,7 +165,7 @@ class AuditLogService {
                     primaryKey: getPrimaryKeyForModel(model),
                     oldValue: model,
                     newValue: null,
-                    oldLabel: labelValue(model),
+                    oldLabel: labelValues(model),
                     newLabel: null,
                     changedBy
                 });
@@ -185,8 +201,8 @@ class AuditLogService {
                             primaryKey: getPrimaryKeyForModel(model),
                             oldValue,
                             newValue,
-                            oldLabel: labelValue(oldValue),
-                            newLabel: labelValue(newLabel),
+                            oldLabel: labelValues(oldValue),
+                            newLabel: labelValues(newLabel),
                             changedBy
                         });
                     });
