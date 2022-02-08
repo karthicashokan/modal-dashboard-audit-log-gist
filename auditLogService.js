@@ -81,8 +81,8 @@ class AuditLogService {
     }
 
     /**
-     * Returns the label values
-     * @param model
+     * Returns the label values for the model provider
+     * @param {object} model
      */
     static labelValues(model) {
         // This assumes that DeliverySettingsProfile has implemented labelValue()
@@ -91,7 +91,13 @@ class AuditLogService {
             : () => null;
         const values = {};
         for (const [key, value] of Object.entries(model)) {
-            values[key] = labelValue(value, key);
+            const value = labelValue(value, key);
+            if (value) {
+                values[key] = labelValue(value, key);
+            }
+        }
+        if (_.isEmpty(values)) {
+            return  null;
         }
         return values;
     }
