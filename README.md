@@ -23,12 +23,12 @@ deliverySettings.deliveryFeesByDistance.forEach(fee => fee.feeCents *= 0.1); // 
 await auditLogService
   .init()
   .withUser(user) // user is the logged-in user - assume ID of 13
+  // Update (Supports multi model changes)
+  .update([deliverySettings, ...deliverySettings.deliveryFeesByDistance])
   // Create (Supports only one row creation at a time)
   .create('deliverySettings', { deliverySettingsProfile: 42, distanceMiles = 200, offerDeliveryTradeIn: 1 })
   // Delete (Supports only one row deletion at a time)
   .delete(deliverySettings)
-  // Update (Supports multi model changes)
-  .update([deliverySettings, ...deliverySettings.deliveryFeesByDistance])
 ```
 
 This will not only create/delete/update the appropriate `DeliverySettingsProfile` row, but also create these rows in `DashboardAuditLog`
