@@ -3,6 +3,7 @@ const DBModels = require('@drivemotors/drive-sdk/db');
 const { DriveError } = require('@drivemotors/drive-sdk/errors');
 const sequelize = require('sequelize');
 const { Model } = require('sequelize');
+const _ = require('lodash');
 const uuid = require('uuid/v4');
 const logger = require('@drivemotors/logger')('auditLogService');
 
@@ -23,9 +24,12 @@ const AUDIT_ACTIONS = {
  * @returns {string}
  */
 const getPrimaryKeyForModel = (model) => {
-    const { tableName, primaryKeyAttributes } = model;
-    const primaryKeyAttribute = primaryKeyAttributes[0]; // We need a policy to handle composite keys
-    return model.get(primaryKeyAttribute);
+    const { primaryKeyAttributes } = model;
+    const primaryKeyValues = _.map(primaryKeyAttributes, (primaryKeyAttribute) => {
+        return model[primaryKeyAttribute];
+    })
+    // Composite primary keys will be stored as comma separated
+    return primaryKeyValues.join();
 };
 
 // Temporary - to be replaced by a real model import
