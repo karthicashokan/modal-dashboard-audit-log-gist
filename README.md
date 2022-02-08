@@ -20,11 +20,11 @@ deliverySettings.deliveryFeesByDistance.forEach(fee => fee.feeCents *= 0.1); // 
 await auditLogService
   .init()
   .withUser(user) // user is the logged-in user - assume ID of 13
-  // Create
+  // Create (Supports only one row creation at a time)
   .create('deliverySettings', {})
-  // Delete
+  // Delete (Supports only one row deletion at a time)
   .delete(deliverySettings)
-  // Update
+  // Update (Supports multi model changes)
   .update([deliverySettings, ...deliverySettings.deliveryFeesByDistance])
 ```
 
