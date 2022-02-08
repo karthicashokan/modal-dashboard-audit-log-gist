@@ -277,6 +277,6 @@ class AuditLogService {
 module.exports = {
     init: () => new AuditLogService(),
     create: (tableName, data, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.CREATE, [{...data, tableName}], manageTransaction),
-        delete: (model, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.CREATE, [model], manageTransaction),
+    delete: (model, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.CREATE, [model], manageTransaction),
     update: (changeSet, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.UPDATE, changeSet, manageTransaction),
 };
