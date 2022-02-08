@@ -102,14 +102,16 @@ class AuditLogService {
         return values;
     }
 
-    static verifyArguments(changeSet) {
+    static verifyArguments(action, changeSet) {
         // 1. Make sure user is initialized
         if (!this.#user) {
             throw new AuditLogServiceMisConfiguredError('Providing a user is required');
         }
-        // 2. Make sure model is supported
-        if (!changeSet.every(AuditLogService.supportedModel)) {
-            throw AuditLogServiceInvalidChangeSetError('One or more of the provided models are invalid');
+        // 2. Make sure model is supported (for Update and Delete)
+        if ([AUDIT_ACTIONS.UPDATE, AUDIT_ACTIONS.DELETE].includes(action)) {
+            if (!changeSet.every(AuditLogService.supportedModel)) {
+                throw AuditLogServiceInvalidChangeSetError('One or more of the provided models are invalid');
+            }
         }
     }
 
@@ -231,7 +233,7 @@ class AuditLogService {
      * @returns {Promise<void>}
      */
     async execute(action, changeSet, manageTransaction = true) {
-        AuditLogService.verifyArguments(changeSet);
+        AuditLogService.verifyArguments(action, changeSet);
         const actionIsPresentAndValid = !!action && Object.keys(AUDIT_ACTIONS).includes(action);
         if (!actionIsPresentAndValid) {
             throw AuditLogServiceInvalidActionError('Invalid action');
@@ -275,6 +277,6 @@ class AuditLogService {
 module.exports = {
     init: () => new AuditLogService(),
     create: (tableName, data, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.CREATE, [{...data, tableName}], manageTransaction),
-    delete: (model, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.CREATE, [model], manageTransaction),
+        delete: (model, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.CREATE, [model], manageTransaction),
     update: (changeSet, manageTransaction = true) => AuditLogService.execute(AUDIT_ACTIONS.UPDATE, changeSet, manageTransaction),
 };
