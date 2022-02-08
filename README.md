@@ -70,9 +70,4 @@ For details on storing a UUID as binary, see [this MySQL blog post](https://dev.
 
 ## Limitations
 
-- For a table to be auditable, it must have a non-composite primary key.
-
-## Implmentation Gaps
-
-- Design does not yet accommodate the logging of newly-added rows, only changes to existing rows
-- Design is not compatible with saving a composite model (i.e., where associations are updated at the same time)
+- Design currently only allows one row to be created and deleted at a time
