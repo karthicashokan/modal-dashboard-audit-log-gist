@@ -28,7 +28,7 @@ await auditLogService
   .update([deliverySettings, ...deliverySettings.deliveryFeesByDistance])
 ```
 
-This will not only update the appropriate `DeliverySettingsProfile` row, but also create these rows in `DashboardAuditLog`
+This will not only create/delete/update the appropriate `DeliverySettingsProfile` row, but also create these rows in `DashboardAuditLog`
 
 ```
 +--+-----------------------+--------------------+----------+--------+--------+--------+--------+----------------------------------+---------+-------------------+
