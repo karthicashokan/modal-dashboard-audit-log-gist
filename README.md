@@ -18,9 +18,14 @@ deliverySettings.offerDeliveryTradeIn = 1; // old value was 0
 deliverySettings.deliveryFeesByDistance.forEach(fee => fee.feeCents *= 0.1); // Increase all fees by 10%
 
 await auditLogService
-  .create()
+  .init()
   .withUser(user) // user is the logged-in user - assume ID of 13
-  .saveChangeSet([deliverySettings, ...deliverySettings.deliveryFeesByDistance]);
+  // Create
+  .create('deliverySettings', {})
+  // Delete
+  .delete(deliverySettings)
+  // Update
+  .update([deliverySettings, ...deliverySettings.deliveryFeesByDistance])
 ```
 
 This will not only update the appropriate `DeliverySettingsProfile` row, but also create these rows in `DashboardAuditLog`
