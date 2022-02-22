@@ -25,11 +25,9 @@ const AUDIT_ACTIONS = {
  */
 const getPrimaryKeyForModel = (model) => {
     const { primaryKeyAttributes } = model;
-    const primaryKeyValues = _.map(primaryKeyAttributes, (primaryKeyAttribute) => {
-        return model[primaryKeyAttribute];
-    })
-    // Composite primary keys will be stored as comma separated
-    return primaryKeyValues.join();
+    const primaryKeyValue = model[primaryKeyAttributes[0]];
+    // We don't support composite keys at this moment
+    return primaryKeyValue;
 };
 
 // Temporary - to be replaced by a real model import
