@@ -6,7 +6,7 @@ Data changes persisted through this service will also persist entries into the `
 
 ### General Usage
 
-For every model update that is persisted through this service's `saveChangeSet()` function, a row will be created in the
+For every model update that is persisted through this service's `create(), update(), delete()` function, a row will be created in the
 `DashboardAuditLog` table *per* modifed field in the model
 
 Consider the following
